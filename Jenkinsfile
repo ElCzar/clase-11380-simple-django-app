@@ -10,21 +10,32 @@ pipeline {
         
         stage('build') {
             steps {
-                sh 'pip install -r requirements.txt'
+                script{
+                    withPythonEnv('python3') {
+                        sh 'pip install -r requirements.txt'
+                    }
+                }
               }
           }
 
         stage('test') {
             steps {
-                sh 'pylint --ignore-path=./.venv ./'
+                script{
+                    withPythonEnv('python3') {
+                        sh 'pylint --ignore-paths=env ./cool_counters/*'
+                    }
+                }
             }
         }
 
         stage('deploy') {
             steps {
-                sh 'python ./cool_counters/manage.py migrate'
-                sh 'python ./cool_counters/manage.py runserver'
-
+                script{
+                    withPythonEnv('python3') {
+                        sh 'python3 ./cool_counters/manage.py migrate'
+                        sh 'python3 ./cool_counters/manage.py runserver'
+                    }
+                }
             }
         }
     }
