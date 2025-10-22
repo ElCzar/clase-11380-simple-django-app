@@ -33,7 +33,7 @@ pipeline {
                 script{
                     withPythonEnv('python3') {
                         sh 'python3 ./cool_counters/manage.py migrate'
-                        sh 'python3 ./cool_counters/manage.py runserver'
+                        sh 'nohup python3 ./cool_counters/manage.py runserver > app.log 2>&1 &'
                     }
                 }
             }
