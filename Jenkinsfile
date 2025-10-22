@@ -1,6 +1,13 @@
 pipeline {
     agent any
     stages {
+        stage('pull') {
+            steps {
+                git branch: "main",
+                    url: 'https://github.com/ElCzar/clase-11380-simple-django-app.git'
+              }
+          }
+        
         stage('build') {
             steps {
                 sh 'source .venv/bin/activate'
