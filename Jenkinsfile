@@ -10,7 +10,7 @@ pipeline {
         
         stage('build') {
             steps {
-                sh 'source .venv/bin/activate'
+                sh 'pip -r requirements.txt'
               }
           }
 
